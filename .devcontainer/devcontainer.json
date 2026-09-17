@@ -1,0 +1,16 @@
+{
+  "name": "Kradle Monorepo",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "forwardPorts": [3000, 8000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Next.js Frontend",
+      "onAutoForward": "openBrowser"
+    },
+    "8000": {
+      "label": "FastAPI Engine",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "cd apps/web && npm install && cd ../engine && python3.12 -m venv venv && ./venv/bin/pip install -r requirements.txt"
+}
