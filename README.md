@@ -863,7 +863,8 @@ Thumbs.db
 
 # 🌿 Git Workflow
 
-Kradle follows a feature-branch development workflow.
+Kradle follows a protected, feature-branch development workflow. Do not commit
+directly to `main` or `dev`; all changes must be reviewed through a Pull Request.
 
 ```text
                          main
@@ -892,15 +893,16 @@ Kradle follows a feature-branch development workflow.
 
 ### `main`
 
-Stable production-ready code.
+Stable, production-ready code. Changes arrive through a reviewed Pull Request
+from `dev`.
 
 ### `dev`
 
-Integration and staging branch.
+Integration and staging branch. Feature Pull Requests target `dev`.
 
 ### `feature/*`
 
-Individual feature development.
+Individual feature development. Create these branches from the latest `dev`.
 
 Examples:
 
@@ -916,17 +918,17 @@ feature/pdf-parser
 
 # 📌 Development Workflow
 
-Create a feature branch:
+1. Update your local `dev` branch and create a feature branch:
 
 ```bash
-git checkout dev
-
-git pull origin dev
-
-git checkout -b feature/your-feature
+git switch dev
+git pull --ff-only origin dev
+git switch -c feature/your-feature
 ```
 
-Make changes and commit:
+Use a descriptive branch name such as `feature/reader-ui`, `fix/pdf-import`, or
+`docs/contributing-guide`. Keep your work focused and commit using the
+conventional commit types below:
 
 ```bash
 git add .
@@ -934,19 +936,34 @@ git add .
 git commit -m "feat: add reader theme controls"
 ```
 
-Push your branch:
+2. Push the feature branch to the remote:
 
 ```bash
 git push origin feature/your-feature
 ```
 
-Then open a Pull Request against:
+3. Open a Pull Request from your feature branch into `dev`. Include a clear
+description, testing notes, and any relevant screenshots or setup changes.
 
-```text
-dev
-```
+4. After the changes are reviewed and `dev` is ready for release, open a Pull
+Request from `dev` into `main`.
 
-At least **one teammate approval** is required before merging.
+### Protected branch rules
+
+The `main` and `dev` branches are protected by the **Core Branch Protection**
+ruleset. Teammates must follow these rules:
+
+* Pull Requests are required before merging.
+* At least **one approval** from a teammate is required.
+* Direct pushes to protected branches are not part of the normal workflow.
+* Force pushes to protected branches are blocked.
+* Deleting protected branches is blocked on the remote.
+* Pull Requests must preserve a linear history; use squash or rebase instead
+  of merge commits.
+
+Before opening a Pull Request, update your branch from its target branch and
+run the relevant tests and checks locally. Resolve review feedback and wait for
+the required approval before merging.
 
 ---
 
@@ -1186,13 +1203,15 @@ Contributions are welcome.
 
 Before submitting a Pull Request:
 
-1. Create a feature branch.
+1. Create a feature, fix, or docs branch from the latest `dev`.
 2. Keep changes focused.
 3. Follow the commit convention.
 4. Test your changes locally.
 5. Update documentation when necessary.
-6. Open a Pull Request against `dev`.
-7. Wait for teammate review.
+6. Open a Pull Request against `dev` for feature work, or against `main` only
+  when promoting a reviewed `dev` release.
+7. Wait for at least one teammate approval and resolve review feedback.
+8. Use a squash or rebase merge so the protected branch keeps a linear history.
 
 For detailed contribution rules, see:
 
