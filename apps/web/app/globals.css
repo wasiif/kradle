@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8f4ee;
-  --foreground: #1d1d1b;
+  --background: #eee9df;
+  --foreground: #29271f;
+  --muted: #706c61;
+  --line: rgba(63, 57, 45, 0.16);
+  --accent: #b6573f;
+  --accent-deep: #873d2e;
 }
 
 html,
@@ -13,7 +17,7 @@ body {
   min-height: 100%;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
 }
 
 * {
@@ -22,8 +26,15 @@ body {
 
 body {
   min-height: 100vh;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.32), transparent 42%),
+    repeating-linear-gradient(0deg, rgba(89, 75, 52, 0.025) 0, rgba(89, 75, 52, 0.025) 1px, transparent 1px, transparent 5px);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 ::selection {
-  background: rgba(120, 119, 198, 0.2);
+  background: rgba(182, 87, 63, 0.2);
 }
